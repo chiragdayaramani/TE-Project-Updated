@@ -72,7 +72,7 @@ def after10result(request):
         flag=False
         questions=get_questions();
         form=request.POST.get("after10form")
-        username = User.email
+        username = request.user.username
         for question in questions:
             #print(question.id)
             # user_id = result.objects.get(user_id = user_id)
@@ -85,8 +85,8 @@ def after10result(request):
                 ans = result(question = q_id,answer = option_selected,username = username )
                 ans.save()
                 flag=True   
-        print(username)
-        print(User.email) 
+        # print(username)
+        # print(User.username,"hi") 
            
     return render(request, "after10result.html", {'flag': flag})
     

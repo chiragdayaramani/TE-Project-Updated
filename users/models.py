@@ -23,8 +23,8 @@ class  User(models.Model):
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
     
-    # def __str__(self):
-    #     return self.email
+    def __str__(self):
+        return self.email
     
 class After10(models.Model):
     question=models.CharField(max_length=150,unique=True)
@@ -91,7 +91,7 @@ class result(models.Model):
     question_type = models.CharField(max_length=50,default = "")
 
     def __str__(self):
-        return self.email
+        return self.username
     
 class result12arts(models.Model):
     ans_CATEGORIES =(
@@ -107,7 +107,7 @@ class result12arts(models.Model):
     question=models.CharField(max_length=1000,  default="")
     answer = models.CharField(max_length=9,choices=ans_CATEGORIES)
 
-def __str__(self):
+    def __str__(self):
         return self.username
     
 class result12comm(models.Model):
@@ -124,7 +124,7 @@ class result12comm(models.Model):
     question=models.CharField(max_length=1000,  default="")
     answer = models.CharField(max_length=9,choices=ans_CATEGORIES)
 
-def __str__(self):
+    def __str__(self):
         return self.username
     
 class result12sci(models.Model):
@@ -141,6 +141,6 @@ class result12sci(models.Model):
     question=models.CharField(max_length=1000,  default="")
     answer = models.CharField(max_length=9,choices=ans_CATEGORIES)
 
-def __str__(self):
+    def __str__(self):
         return self.username
     
