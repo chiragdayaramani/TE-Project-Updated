@@ -1,26 +1,25 @@
-
-INSERT INTO `users_after10` (`id`, `question`) VALUES
- (NULL, 'Do you Enjoy reading technical materials and solving technical problems?'),
- (NULL, 'Do you like film making?'), 
-(NULL, 'Do you show strong interest in how laws and regulations are designed and passed?'), 
-(NULL, 'Do you enjoy conducting experiments on chemicals and observing their reactions and physical theory? '),
-(NULL, 'Will you enjoy writing a book?'),
-(NULL, 'Do you like to maintain a monthly record of budget and  expenses?'),
- (NULL, 'Do you like to learn/know the logic behind things happening in the surrounding? '),
-(NULL, 'Do you like to spend time in the library collecting information about world history,evolution etc?'), 
-(NULL, 'Do you like to read business newspapers? '), 
-(NULL, 'Are you interested in studying about space?'), 
-(NULL, 'Are you interested in crafts to create something artistic or to create DIY products ?'),
- (NULL, 'Do you like to sell a product to someone ?'),
-(NULL, 'Do you have interest in knowing about medicines?'),
- (NULL, 'Do you like to design dresses or jewellery?'), 
-(NULL, 'Are you interested in covering news and journalism?'),
- (NULL, 'Do you like to learn a computer programming language ?'), 
-(NULL, 'Do you like to participate in community services or/volunteering?'), 
-(NULL, 'Do you like solving accounting problems?'), 
-(NULL, 'Do you enjoy developing a mobile based app?'), 
-(NULL, 'Do you like to entertain an audience as a comedian, magician, musician, actor?'),
- (NULL, 'Can you help people in financial planning?');
+INSERT INTO `users_after10` (`id`, `question`,`question_type`) VALUES
+ (NULL, 'Do you Enjoy reading technical materials and solving technical problems?','S'),
+ (NULL, 'Do you like film making?','A'), 
+(NULL, 'Do you show strong interest in how laws and regulations are designed and passed?','C'), 
+(NULL, 'Do you enjoy conducting experiments on chemicals and observing their reactions and physical theory? ','S'),
+(NULL, 'Will you enjoy writing a book?','A'),
+(NULL, 'Do you like to maintain a monthly record of budget and  expenses?','C'),
+ (NULL, 'Do you like to learn/know the logic behind things happening in the surrounding? ','S'),
+(NULL, 'Do you like to spend time in the library collecting information about world history,evolution etc?','A'), 
+(NULL, 'Do you like to read business newspapers? ','C'), 
+(NULL, 'Are you interested in studying about space?','S'), 
+(NULL, 'Are you interested in crafts to create something artistic or to create DIY products ?','A'),
+ (NULL, 'Do you like to sell a product to someone ?','C'),
+(NULL, 'Do you have interest in knowing about medicines?','S'),
+ (NULL, 'Do you like to design dresses or jewellery?','A'), 
+(NULL, 'Are you interested in covering news and journalism?','C'),
+ (NULL, 'Do you like to learn a computer programming language ?','S'), 
+(NULL, 'Do you like to participate in community services or/volunteering?','A'), 
+(NULL, 'Do you like solving accounting problems?','C'), 
+(NULL, 'Do you enjoy developing a mobile based app?','S'), 
+(NULL, 'Do you like to entertain an audience as a comedian, magician, musician, actor?','A'),
+ (NULL, 'Can you help people in financial planning?','C');
 
 
 INSERT INTO `users_after12arts` (`id`, `question`) VALUES (NULL, 'Market a new line of clothing'), (NULL, 'Investigate crimes'), (NULL, ' Audition singers and musicians for a musical show'), (NULL, 'Edit movies'), (NULL, 'Take care of children at a day-care center'), (NULL, 'Teach a high-school class'), (NULL, 'Teach an individual an exercise routine'), (NULL, 'Write a song'), (NULL, 'Act in a play'), (NULL, 'Learn home decor');
