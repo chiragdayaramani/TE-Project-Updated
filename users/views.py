@@ -1,6 +1,8 @@
+from contextlib import redirect_stderr
+from itertools import count
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import Result10Count, User
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from users.models import After10, After12Arts, After12Commerce, After12Science ,After10colleges, After12engcolleges, After12medicolleges,After12commcolleges,After12artscolleges,result,result12arts,result12comm,result12sci
@@ -73,6 +75,9 @@ def after10result(request):
         questions=get_questions();
         form=request.POST.get("after10form")
         username = User.email
+        count_arts=0
+        count_science=0
+        count_comm=0
         for question in questions:
             #print(question.id)
             # user_id = result.objects.get(user_id = user_id)
@@ -82,8 +87,16 @@ def after10result(request):
             option_selected=request.POST.get(str(q_id))
             type=question.question_type
             print(q_id, option_selected,type)
+            
             if(q_id != None and option_selected!= None):
                 ans = result(question = q_id,answer = option_selected,username = username,question_type=type )
+                option_selected=int(option_selected)
+                if(type=='C'):
+                    count_comm=count_comm+option_selected
+                if(type=='A'):
+                    count_arts=count_arts+option_selected
+                if(type=='S'):
+                    count_science=count_science+option_selected
                 ans.save()
                 flag=True
         # email= form.cleaned_data.get("email")
@@ -91,12 +104,18 @@ def after10result(request):
     
         # user= User.objects.get(email=email, password=password)
         # print(user.email)
-        # print(user.password)   
+        # print(user.password)
+        countResult=Result10Count(username=username,count_science=count_science,count_arts=count_arts,count_commerce=count_comm)   
+        countResult.save()
+        print(count_arts,count_comm,count_science)
         print(username)
         print(User.email) 
            
-    return render(request, "after10result.html", {'flag': flag})
+    return render(request, "after10result.html", {'flag': flag,'science':count_science,'comm':count_comm,'arts':count_arts,})
     
+    
+
+
 def get_questions12arts():
     questions=After12Arts.objects.all();
     return questions

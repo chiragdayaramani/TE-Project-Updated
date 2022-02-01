@@ -1,3 +1,5 @@
+from itertools import count
+from pyexpat import model
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from django.contrib.auth.models import AbstractUser , BaseUserManager # change
@@ -92,7 +94,17 @@ class result(models.Model):
 
     def __str__(self):
         return self.username
-    
+
+class Result10Count(models.Model):
+    # user_id=models.CharField(max_length=100,unique=True)
+    username=models.CharField(max_length=100)
+    count_science=models.CharField(max_length=10)
+    count_arts=models.CharField(max_length=10)
+    count_commerce=models.CharField(max_length=10)
+
+    def __str__(self) -> str:
+        return self.username
+
 class result12arts(models.Model):
     ans_CATEGORIES =(
         ('Dislike' , 'Dislike'),
