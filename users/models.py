@@ -31,6 +31,7 @@ class  User(models.Model):
 class After10(models.Model):
     question=models.CharField(max_length=150,unique=True)
     question_type = models.CharField(max_length = 120,default=" ")
+    correct_answer = models.CharField(max_length = 120,default=" ")
 
 class After12Arts(models.Model):
     question=models.CharField(max_length=150,unique=True)
@@ -91,6 +92,7 @@ class result(models.Model):
     question=models.CharField(max_length=1000,  default="")
     answer = models.CharField(max_length=9,choices=ans_CATEGORIES)
     question_type = models.CharField(max_length=50,default = "")
+    # correct_answers
 
     def __str__(self):
         return self.username

@@ -1,5 +1,7 @@
 from contextlib import redirect_stderr
+import csv
 from itertools import count
+from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth.forms import UserCreationForm
 from .models import Result10Count, User
@@ -69,6 +71,15 @@ def after10(request):
         'questions':questions
     }
     return render(request, 'after10.html',context)
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.model_selection import train_test_split 
+from sklearn.linear_model import LinearRegression
+
 def after10result(request):
     if request.method == "POST":
         flag=False
@@ -78,6 +89,16 @@ def after10result(request):
         count_arts=0
         count_science=0
         count_comm=0
+
+        # response = HttpResponse(content_type='text/csv')  
+        # response['Content-Disposition'] = 'attachment; filename="file.csv"'  
+        results = pd.DataFrame()
+        response = HttpResponse(content_type='text/csv')
+        response['Content-Disposition'] = 'attachment; filename=file.csv'
+        results.to_csv(path_or_buf=response,sep=';',float_format='%.2f',index=False,decimal=",")
+        writer = csv.writer(response)  
+        writer.writerow(['question', 'answer', 'username', 'question_type'])
+
         for question in questions:
             #print(question.id)
             # user_id = result.objects.get(user_id = user_id)
@@ -90,6 +111,7 @@ def after10result(request):
             
             if(q_id != None and option_selected!= None):
                 ans = result(question = q_id,answer = option_selected,username = username,question_type=type )
+                writer.writerow([q_id, option_selected, username, type])
                 option_selected=int(option_selected)
                 if(type=='C'):
                     count_comm=count_comm+option_selected
@@ -110,6 +132,37 @@ def after10result(request):
         print(count_arts,count_comm,count_science)
         print(username)
         print(User.email) 
+
+        # def getfile(request):  
+        # response = HttpResponse(content_type='text/csv')  
+        # response['Content-Disposition'] = 'attachment; filename="file.csv"'  
+        # writer = csv.writer(response)  
+        # writer.writerow(['Username', 'Science', 'Commerce', 'Arts'])  
+        # writer.writerow([username, count_science, count_comm, count_arts]) 
+        foo = response.content.decode('utf-8')
+        import io
+        reader = csv.reader(io.StringIO(foo))
+        dataset = pd.read_csv(io.StringIO(foo))
+        X = dataset.iloc[:, :1].values #get a copy of dataset exclude last column
+        y = dataset.iloc[:, 1].values #get array of dataset in column 1st
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=1/3, random_state=0)
+        regressor = LinearRegression()
+        regressor.fit(X_train, y_train)
+        viz_train = plt
+        plt.xticks([1, 2, 3, 4, 5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21])  
+        plt.yticks([0,1,2])  
+        # categories = np.array([0, 2, 1, 1, 1, 2, 0, 0])
+        # colormap = np.array(['r', 'g', 'b'])
+        # ax[0].scatter(op_table.index,op_table['num_orders'],color='pink') 
+        viz_train.scatter(X_train, y_train, color='red')
+        # viz_train.bar(center_table.index,center_table['num_orders'],alpha=0.7,color='orange',width=0.5) 
+        viz_train.plot(X_train, regressor.predict(X_train), color='blue')
+        viz_train.title('Marks VS Question No')
+        viz_train.xlabel('Question No')
+        viz_train.ylabel('Marks')
+        viz_train.show()
+
+        # return response  
            
     return render(request, "after10result.html", {'flag': flag,'science':count_science,'comm':count_comm,'arts':count_arts,})
     
